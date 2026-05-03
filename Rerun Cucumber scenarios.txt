@@ -1,0 +1,41 @@
+Step 1: Enable rerun plugin in your runner
+
+In your Cucumber runner class:
+
+@CucumberOptions(
+    features = "src/test/resources/features",
+    glue = "stepDefinitions",
+    plugin = {
+        "pretty",
+        "html:target/cucumber-report.html",
+        "rerun:target/failed_scenarios.txt"
+    }
+)
+
+------------------------------------------------------------------------------------
+Step 2: Create a rerun runner class
+
+Create another runner to execute only failed scenarios:
+
+@CucumberOptions(
+    features = "@target/failed_scenarios.txt",
+    glue = "stepDefinitions",
+    plugin = {
+        "pretty",
+        "html:target/rerun-report.html"
+    }
+)
+public class FailedRunner {
+}
+---------------------------------------------------------------------------------------------
+
+Step 3: Run sequence
+Run your main test runner
+Failed scenarios get stored in failed_scenarios.txt
+Run FailedRunner to execute only failures
+
+
+
+mngr660340
+
+japugYr
